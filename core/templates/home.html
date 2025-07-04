@@ -5,69 +5,70 @@
 
 {% block content %}
     <style>
-body {
+        body {
             background: linear-gradient(135deg, #f5f5f5 0%, #e6f0ff 50%, #d6e4ff 100%);
             min-height: 100vh;
             margin: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 16px;
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 20px;
-            padding-top: 40px; /* Ajout d'espace en haut */
+            padding: 15px;
+            padding-top: 20px;
         }
 
-        /* Nouveau style optimisé pour le header */
+        /* Header responsive */
         .header-container {
-            margin-top: 30px;
-            margin-bottom: 30px;
+            margin: 20px 0;
             text-align: center;
         }
 
         .header-title {
-            font-size: 2.5rem;
+            font-size: clamp(1.5rem, 5vw, 2.5rem); /* Taille responsive */
             font-weight: 700;
             color: #1e3a8a;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
-            letter-spacing: 0.5px;
-            padding: 15px 0;
+            padding: 10px 0;
             position: relative;
             display: inline-block;
+            width: 100%;
         }
 
         .header-title:after {
             content: '';
             position: absolute;
-            width: 60%;
+            width: 80%;
             height: 3px;
             background: linear-gradient(to right, #3b82f6, #1e3a8a);
             bottom: 0;
-            left: 20%;
+            left: 10%;
             border-radius: 3px;
         }
-
 
         @keyframes bounce {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-5px); }
         }
+
         .question-mark {
             display: inline-block;
             animation: bounce 1.5s infinite;
-            font-size: 1.2rem; /* Taille réduite */
+            font-size: clamp(0.8rem, 3vw, 1.2rem);
         }
+
         .question-mark:nth-child(2) { animation-delay: 0.2s; }
         .question-mark:nth-child(3) { animation-delay: 0.4s; }
 
+        /* Carrousel responsive */
         .carousel-container {
             position: relative;
-            height: 200px;
+            height: clamp(150px, 30vw, 200px);
             overflow: hidden;
             border-radius: 8px 8px 0 0;
             background-color: #f8f9fa;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
         }
 
         .carousel-slide {
@@ -93,34 +94,49 @@ body {
             pointer-events: none;
         }
 
+        /* Cartes responsive */
         .club-card {
             background: white;
             border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             overflow: hidden;
         }
 
         .club-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 10px rgba(0,0,0,0.15);
         }
 
+        /* Titres responsive */
         .section-title {
-            font-size: 1.5rem;
+            font-size: clamp(1.2rem, 4vw, 1.5rem);
             font-weight: 600;
             color: #1e3a8a;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
         }
 
+        /* Grille responsive améliorée */
         .grid {
             display: grid;
-            gap: 20px;
+            gap: 15px;
+            grid-template-columns: 1fr;
         }
 
-        @media (min-width: 640px) {
+        @media (min-width: 500px) {
             .grid {
                 grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 768px) {
+            .container {
+                padding: 20px;
+                padding-top: 30px;
+            }
+
+            .grid {
+                gap: 20px;
             }
         }
 
@@ -128,15 +144,21 @@ body {
             .grid {
                 grid-template-columns: repeat(3, 1fr);
             }
+
+            .header-container {
+                margin: 30px 0;
+            }
         }
 
+        /* Champ de recherche responsive */
         .search-input {
             width: 100%;
             padding: 0.75rem 1rem;
             border: 1px solid #d1d5db;
             border-radius: 0.5rem;
-            font-size: 1rem;
+            font-size: clamp(0.9rem, 3vw, 1rem);
             transition: all 0.2s;
+            margin-bottom: 1.5rem;
         }
 
         .search-input:focus {
@@ -144,14 +166,69 @@ body {
             border-color: #3b82f6;
             box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
         }
+
+        /* Contenu des cartes responsive */
+        .club-content {
+            padding: 1rem;
+        }
+
+        .club-name {
+            font-size: clamp(1rem, 3.5vw, 1.25rem);
+            font-weight: 600;
+            color: #1e3a8a;
+            margin-bottom: 0.5rem;
+        }
+
+        .club-description {
+            font-size: clamp(0.85rem, 2.5vw, 0.95rem);
+            color: #4b5563;
+            margin-bottom: 0.75rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .club-members {
+            font-size: clamp(0.8rem, 2.5vw, 0.9rem);
+            color: #6b7280;
+        }
+
+        /* Cartes de défis responsive */
+        .challenge-card {
+            padding: 1rem;
+        }
+
+        .challenge-title {
+            font-size: clamp(1rem, 3.5vw, 1.1rem);
+        }
+
+        .challenge-difficulty {
+            font-size: clamp(0.7rem, 2.5vw, 0.75rem);
+        }
+
+        .challenge-description {
+            font-size: clamp(0.85rem, 2.5vw, 0.9rem);
+        }
+
+        .challenge-deadline {
+            font-size: clamp(0.8rem, 2.5vw, 0.85rem);
+        }
+
+        .challenge-button {
+            font-size: clamp(0.8rem, 2.5vw, 0.9rem);
+            padding: 0.5rem 1rem;
+        }
     </style>
 
     <div class="container">
-        <!-- Header ajusté -->
-        <h1 class="header-title">Bienvenue sur ZEVABA</h1>
+        <!-- Header responsive -->
+        <div class="header-container">
+            <h1 class="header-title">BIENVENUE SUR ZEVABA</h1>
+        </div>
 
-        <!-- Barre de recherche -->
-        <div class="mb-8">
+        <!-- Barre de recherche responsive -->
+        <div>
             <input type="text" placeholder="Rechercher des clubs..." class="search-input">
         </div>
 
@@ -208,10 +285,10 @@ body {
                     <div class="carousel-overlay"></div>
                 </div>
 
-                <div class="p-4">
-                    <h3 class="text-xl font-semibold text-blue-700 mb-2">{{ club.name }}</h3>
-                    <p class="text-gray-600 mb-4">{{ club.description|truncatewords:15 }}</p>
-                    <div class="flex items-center text-sm text-gray-500">
+                <div class="club-content">
+                    <h3 class="club-name">{{ club.name }}</h3>
+                    <p class="club-description">{{ club.description }}</p>
+                    <div class="flex items-center club-members">
                         <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
                         </svg>
@@ -234,17 +311,17 @@ body {
 
         <div class="grid">
             {% for challenge in challenges %}
-            <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
-                <div class="flex justify-between items-start mb-3">
-                    <h3 class="text-lg font-semibold text-blue-800">{{ challenge.title }}</h3>
-                    <span class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full">
+            <div class="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow challenge-card">
+                <div class="flex justify-between items-start mb-2">
+                    <h3 class="text-lg font-semibold text-blue-800 challenge-title">{{ challenge.title }}</h3>
+                    <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full challenge-difficulty">
                         {{ challenge.get_difficulty_display }}
                     </span>
                 </div>
-                <p class="text-gray-600 mb-4">{{ challenge.description|truncatewords:20 }}</p>
+                <p class="text-gray-600 mb-3 challenge-description">{{ challenge.description|truncatewords:20 }}</p>
                 <div class="flex justify-between items-center text-sm">
-                    <span class="text-gray-500">Date limite: {{ challenge.deadline|date:"d/m/Y" }}</span>
-                    <button class="bg-blue-600 text-white px-4 py-1 rounded-full hover:bg-blue-700 transition-colors">
+                    <span class="text-gray-500 challenge-deadline">Date limite: {{ challenge.deadline|date:"d/m/Y" }}</span>
+                    <button class="bg-blue-600 text-white px-3 py-1 rounded-full hover:bg-blue-700 transition-colors challenge-button">
                         Voir défi
                     </button>
                 </div>
