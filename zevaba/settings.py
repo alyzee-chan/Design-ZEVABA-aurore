@@ -9,7 +9,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = env('SECRET_KEY', default='your-secret-key')
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'zevaba.onrender.com']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'design-zevaba-aurore.onrender.com']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
